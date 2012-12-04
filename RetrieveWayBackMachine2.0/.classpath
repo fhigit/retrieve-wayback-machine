@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="/Users/pramote/Desktop/libs/Java/jericho-html-3.2/dist/jericho-html-3.2.jar"/>
+	<classpathentry kind="lib" path="/Users/pramote/Desktop/libs/Java/heritrix-1.14.4/heritrix-1.14.4.jar"/>
+	<classpathentry kind="lib" path="/Users/pramote/Desktop/libs/Java/heritrix-1.14.4/lib/fastutil-5.0.3-heritrix-subset-1.0.jar"/>
+	<classpathentry kind="lib" path="/Users/pramote/Desktop/libs/Java/heritrix-1.14.4/lib/commons-io-1.3.1.jar"/>
+	<classpathentry kind="lib" path="/Users/pramote/Desktop/libs/Java/apache-log4j-1.2.17/log4j-1.2.17.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

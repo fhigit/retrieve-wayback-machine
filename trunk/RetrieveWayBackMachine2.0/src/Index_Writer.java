@@ -17,8 +17,8 @@ public class Index_Writer {
 	
 	public static synchronized void write(String s) {
 		try {
-			bw.write(s);
-			bw.newLine();
+			bw.write(s + "\n");
+			bw.flush();
 		} catch (IOException e) {
 			logRecord.err("Index writer error write file.");
 			e.printStackTrace();

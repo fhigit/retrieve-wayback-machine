@@ -145,12 +145,12 @@ public class Crawler implements Runnable {
 		}
 		Downloader dl = new Downloader(this.getLinks());
 		if(dl.getFileName() != null) {
+			//System.out.println(dl.getFileName() + "\t" + this.url + "\t" + dl.getNumberOfRecord());
 			Index_Writer.write(dl.getFileName() + "\t" + this.url + "\t" + dl.getNumberOfRecord());
-			logRecord.info("%s close", dl.getFileName());
+			logRecord.info("Finish %s. %s %s close", this.record, this.url, dl.getFileName());
 		}
 		else
-			logRecord.err("%s doesn't not exist in history.", this.url);
-		logRecord.info("%s. %s - finish job.", this.record, this.url);
+			logRecord.err("Finish %s. %s doesn't not exist in history.", this.record, this.url);
 	}
 	
 	public Crawler(Crawler_Main.data d) throws InterruptedException {

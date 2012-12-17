@@ -13,14 +13,14 @@ public class ParallelArcWriter {
 		long start_time = new Date().getTime();
 		List<File> dirs = new LinkedList<File>();
 		dirs.add(new File(Configuration.outputDir));
-		ARCWriter arc_writer = new ARCWriter(new AtomicInteger(), dirs, "test", true, -1);
+		ARCWriter arc_writer = new ARCWriter(new AtomicInteger(), dirs, "test", false, -1);
 		try {
 			for(String[] page : pages) {
 				String url = page[0];
 				String html = page[1];
 				byte[] content = html.getBytes();
 				bis = new ByteArrayInputStream(content);
-				arc_writer.write(url, "text/html", "127.0.0.1", new Date().getTime(), content.length, bis);
+				arc_writer.write(url, "text/html", "127.0.0.1", System.currentTimeMillis(), content.length, bis);
 			}
 		} catch(Exception e) {	
 			

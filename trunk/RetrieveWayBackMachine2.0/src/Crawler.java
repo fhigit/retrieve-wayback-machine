@@ -5,6 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
+
 import net.htmlparser.jericho.*;
 
 public class Crawler implements Runnable {
@@ -34,6 +35,8 @@ public class Crawler implements Runnable {
 	private String record;
 	
 	private String fetch(String url) {
+		sleep((Integer.parseInt(record) % 4) * 1000);
+		
 		int s = 0;
 		String content = null;
 		InputStream is = null;

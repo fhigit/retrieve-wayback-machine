@@ -1,19 +1,20 @@
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.archive.io.arc.ARCWriter;
 
 public class ParallelArcWriter {
+	private static AtomicInteger aInt = new AtomicInteger();
+	
 	public synchronized static String write(List<String[]> pages) {
 		String filename;
 		ByteArrayInputStream bis = null;
-		long start_time = new Date().getTime();
+		long start_time = System.currentTimeMillis();
 		List<File> dirs = new LinkedList<File>();
 		dirs.add(new File(Configuration.outputDir));
-		ARCWriter arc_writer = new ARCWriter(new AtomicInteger(), dirs, "test", false, -1);
+		ARCWriter arc_writer = new ARCWriter(aInt, dirs, "test", false, -1);
 		try {
 			for(String[] page : pages) {
 				String url = page[0];
@@ -37,7 +38,7 @@ public class ParallelArcWriter {
 		}
 		while(arc_writer.getFile().getName().endsWith(".open"));
 		filename = arc_writer.getFile().getName();
-		long elapsed = start_time - new Date().getTime();
+		long elapsed = System.currentTimeMillis() - start_time;
 		if(elapsed < 1000) {
 			try {
 				Thread.sleep(1000-elapsed);

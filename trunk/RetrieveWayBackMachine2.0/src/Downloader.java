@@ -12,7 +12,7 @@ public class Downloader {
 	private int numberOfRecord = 0;
 	
 	private String fetch(String url) {
-		sleep(2000);
+		sleep(1000);
 		
 		int s = 0;
 		String content = null;

@@ -35,7 +35,7 @@ public class Crawler implements Runnable {
 	private String record;
 	
 	private String fetch(String url) {
-		sleep((Integer.parseInt(record) % 4) * 1000);
+		sleep((Integer.parseInt(record) % 2) * 1000);
 		
 		int s = 0;
 		String content = null;

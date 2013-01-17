@@ -35,17 +35,18 @@ public class Crawler implements Runnable {
 	private String record;
 	
 	private String fetch(String url) {
-		sleep((Integer.parseInt(record) % 2) * 1000);
+		//sleep((Integer.parseInt(record) % 2) * 1000);
 		
 		int s = 0;
 		String content = null;
 		InputStream is = null;
 		BufferedReader br = null;
+		HttpURLConnection uc = null;
 		while(s < Configuration.errorCorrection) {
 			try {
 				int timeout = 3000; // milliseconds
 				URL u = new URL(url);
-				HttpURLConnection uc = (HttpURLConnection) u.openConnection();
+				uc = (HttpURLConnection) u.openConnection();
 				uc.setRequestProperty("User-agent", "Pramote T., MIKE lab, Kasetsart University, boatblaster@gmail.com");
 				uc.setConnectTimeout(timeout);
 				uc.setReadTimeout(timeout);
@@ -62,24 +63,22 @@ public class Crawler implements Runnable {
 				while ((tmp = br.readLine()) != null) {
 					content += tmp + "\n";
 				}
+				break;
 			}
 			catch (Exception e) {
 				logRecord.err("recrawl(%d/%d) - %s - %s", s+1, Configuration.errorCorrection, url, e.getMessage());
+				s++;
+				continue;
 			}
-			finally {
-				try {
-					if(br != null)
-						br.close();
-					if(is != null)
-						is.close();
-				} catch(Exception e) {
-					
-				}
-				if(content != null)
-					break;
-				else
-					s++;
-			}
+		}
+		try {
+			if(br != null)
+				br.close();
+			if(is != null)
+				is.close();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
 		}
 		return content;
 	}

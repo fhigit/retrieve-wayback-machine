@@ -12,17 +12,18 @@ public class Downloader {
 	private int numberOfRecord = 0;
 	
 	private String fetch(String url) {
-		sleep(1000);
+		//sleep(1000);
 		
 		int s = 0;
 		String content = null;
 		InputStream is = null;
 		BufferedReader br = null;
+		HttpURLConnection uc = null;
 		while(s < Configuration.errorCorrection) {
 			try {
 				int timeout = 3000; // milliseconds
 				URL u = new URL(url);
-				HttpURLConnection uc = (HttpURLConnection) u.openConnection();
+				uc = (HttpURLConnection) u.openConnection();
 				uc.setRequestProperty("User-agent", "Pramote T., MIKE lab, Kasetsart University, boatblaster@gmail.com");
 				uc.setConnectTimeout(timeout);
 				uc.setReadTimeout(timeout);
@@ -39,24 +40,22 @@ public class Downloader {
 				while ((tmp = br.readLine()) != null) {
 					content += tmp + "\n";
 				}
+				break;
 			}
 			catch (Exception e) {
 				logRecord.err("redownload(%d/%d) - %s - %s", s+1, Configuration.errorCorrection, url, e.getMessage());
+				s++;
+				continue;
 			}
-			finally {
-				try {
-					if(br != null)
-						br.close();
-					if(is != null)
-						is.close();
-				} catch(Exception e) {
-					
-				}
-				if(content != null)
-					break;
-				else
-					s++;
-			}
+		}
+		try {
+			if(br != null)
+				br.close();
+			if(is != null)
+				is.close();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
 		}
 		return content;
 	}
@@ -70,6 +69,7 @@ public class Downloader {
 	private void run() {
 		List<String[]> pages = new LinkedList<String[]>();
 		for(String link : links) {
+			link = "http://wayback.archive.org" + link;
 			String html = fetch(link);
 			if(html != null && !html.equals("")) {
 				pages.add(new String[] {link, html});
